@@ -23,4 +23,5 @@ done
 
 # run advanced function, actually do correlation analysis in tumor and normal, and ranking score based on delta corr between tumor and normal
 python main.py advanced -i db/TCGA_XENA_exp_mat_with_pheno_survival.parquet -p ./test -g PBRM1 -c all -j CTL
+Rscript GSEA.R -i ./test_signature.txt -p ./test -c TCGA-KIRC_ranking_score
 # partial correlation adjusted by CTL
