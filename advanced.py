@@ -182,8 +182,8 @@ def _prioritizing(tumor_corr, delta_corr):
             delta_corr_value[neg_genes], tumor_corr_coef[neg_genes], ascending=False, cancer=cancer)
         # new order: rank product of tumor correlation and delta correlation between tumor vs normal
         new_order = pd.concat([pos_rank_product, -neg_rank_product])
-        new_order[cancer] = np.log2(
-            np.abs(new_order[cancer])) * (new_order[cancer]/np.abs(new_order[cancer]))
+#         new_order[cancer] = np.log2(
+#             np.abs(new_order[cancer])) * (new_order[cancer]/np.abs(new_order[cancer]))
         new_order_all = pd.concat([new_order_all, new_order], axis=1)
 
     return(new_order_all)  # dataframe where rows = gene, col = ranking score
