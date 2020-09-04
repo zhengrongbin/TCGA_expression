@@ -67,7 +67,7 @@ msg = function(cnt){
 
 plotEnrichment <- function(pathway, pname, stats, gseaParam = 1, ticksSize = 0.2){
   stats <- stats[!is.na(stats)]
-  breaks <- length(stats[stats>0])
+  breaks <- length(stats[stats>0]) # default this is a foldchange, so take 0 as midpoint
   rnk <- rank(-stats)
   ord <- order(rnk)
   statsAdj <- stats[ord]
@@ -113,7 +113,7 @@ plotEnrichment <- function(pathway, pname, stats, gseaParam = 1, ticksSize = 0.2
   g3 = ggplot(data = rank_mat, aes(x = ranks, y = h, fill = ranks))+geom_tile()+gstyle+midstyle+
     theme(legend.position='none')+
     xlab('')+ylab('')+
-    scale_fill_gradient2(high = 'blue', low = 'red', mid = 'white', midpoint = breaks)
+    scale_fill_gradient2(high = 'blue', low = 'red', mid = 'white', midpoint = sort(rank_mat[rank_mat$score > 0, 'score'])[1])
   
   g4 = ggplot(data = rank_mat[seq(1, nrow(rank_mat), 100),], aes(x = ranks, y = score))+
     geom_line(color = 'grey')+geom_area(fill = "lightgrey")+
