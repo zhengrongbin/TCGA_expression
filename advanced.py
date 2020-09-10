@@ -227,7 +227,7 @@ def _refer_normal_delta_corr(tumor_res, normal_res, config):
         res2 = pd.concat(
             [partial_new_order, partial_delta_corr, partial_delta_pval], axis=1, sort=True)
         res2.to_csv(
-            config['prefix'] + '_%s_regular_corr_signature_tumor_vs_normal.csv' % gene)
+            config['prefix'] + '_%s_partial_corr_signature_tumor_vs_normal.csv' % gene)
 
 
 def _output(config, res, label='tumor'):
