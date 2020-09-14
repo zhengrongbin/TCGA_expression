@@ -35,13 +35,6 @@ library('DESeq2')
 library('fgsea')
 library(ggrepel)
 library(ppcor)
-# # parameters
-# gene_ann_path = NA
-# ccle_tpm_path = '/data1/XBH_Data/shiny-server-data/CCLE_exp/rnaseq/CCLE_RNAseq_rsem_genes_tpm_20180929.symbol.txt'
-# ccle_count_path = '/data1/XBH_Data/shiny-server-data/CCLE_exp/rnaseq/CCLE_RNAseq_genes_counts_20180929.merge_gene.csv'
-# ccle_cell_ann_path = '/data1/XBH_Data/shiny-server-data/CCLE_exp/rnaseq/Cell_lines_annotations_20181226.txt'
-# gene_name = 'NCR3LG1'
-# prefix = './B7/'
 
 if (is.na(gene_ann_path)){
   static = './static/'
@@ -105,7 +98,7 @@ gene_exp_out = data.frame("cellLine" = as.vector(names(gene_exp)), "expression" 
 gene_exp_out = merge(gene_exp_out, cell_ann[,c("Name", "Pathology", "Site_Primary", "Histology")], by.x = "cellLine", by.y = 0)
 
 gene_exp_out = gene_exp_out[order(-gene_exp_out$expression),]
-write.table(gene_exp_out, file = paste0(prefix, "_expression_ccle.csv"), quote = F, row.names = F)
+write.csv(gene_exp_out, file = paste0(prefix, "_expression_ccle.csv"), quote = F, row.names = F)
 rm(gene_exp_out)
 
 
@@ -153,7 +146,7 @@ dds <- readRDS(paste0(prefix, '_ccle_', gene_name, '_deseq_top_bottom.rds'))
 print("+++++ export differential expression")
 ## get diff exp genes
 compare_name <- paste0('cond_', gene_name, '_Top_vs_', gene_name, '_Bottom')
-if (!compare_name %in% resultsNames(dds)){
+if (compare_name %in% resultsNames(dds)){
     high_vs_low_ccle <- as.data.frame(results(dds, contrast = list(compare_name)))
 }else{
     compare_name <- paste0('cond_', gene_name, '_Bottom_vs_', gene_name, '_Top')
@@ -162,7 +155,7 @@ if (!compare_name %in% resultsNames(dds)){
     high_vs_low_ccle$stat <- -high_vs_low_ccle$stat
 }
 
-write.table(high_vs_low_ccle, file = paste0(prefix, '_', gene_name, '_Top_vs_Bottom_ccle_deseq2_res_table.csv',
+write.csv(high_vs_low_ccle, file = paste0(prefix, '_', gene_name, '_Top_vs_Bottom_ccle_deseq2_res_table.csv',
                                             quote = F)
 
 
