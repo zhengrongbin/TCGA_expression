@@ -26,7 +26,7 @@ def _get_mat(gene, g, adj_gene, exp_mat, smallest):
         mat = exp_mat[[gene, g, adj_gene, 'project_id']]
     else:
         mat = exp_mat[[gene, g, 'project_id']]
-    ## the smallest value can be 0 or log2(x), since the too many zero result in faked correlation coefficient
+    # the smallest value can be 0 or log2(x), since the too many zero result in faked correlation coefficient
     filter_zero = (mat[gene] != smallest) & (mat[g] != smallest)
     mat = mat.loc[filter_zero, :]
     # count for each cancer type
@@ -185,7 +185,6 @@ def _prioritizing(tumor_corr, delta_corr):
 #         new_order[cancer] = np.log2(
 #             np.abs(new_order[cancer])) * (new_order[cancer]/np.abs(new_order[cancer]))
         new_order_all = pd.concat([new_order_all, new_order], axis=1)
-
     return(new_order_all)  # dataframe where rows = gene, col = ranking score
 
 
@@ -227,7 +226,7 @@ def _refer_normal_delta_corr(tumor_res, normal_res, config):
         res2 = pd.concat(
             [partial_new_order, partial_delta_corr, partial_delta_pval], axis=1, sort=True)
         res2.to_csv(
-            config['prefix'] + '_%s_regular_corr_signature_tumor_vs_normal.csv' % gene)
+            config['prefix'] + '_%s_partial_corr_signature_tumor_vs_normal.csv' % gene)
 
 
 def _output(config, res, label='tumor'):
