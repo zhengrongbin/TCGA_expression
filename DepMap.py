@@ -33,9 +33,9 @@ gene_name = sys.argv[1] #official gene symbol in DepMap data matrix
 
 # crispr screening result
 depmap_screening = pd.read_csv(
-    '/data2/zhengrongbin/data/DepMap/DepMap_Screen_result.csv.gz', compression='gzip', index_col=0)
+    './static/DepMap_Screen_result.csv.gz', compression='gzip', index_col=0)
 # sample annotation
-sample_info_path = '/data2/zhengrongbin/data/DepMap/sample_info.csv'
+sample_info_path = './static/sample_info.csv'
 sample_info = pd.read_csv(sample_info_path, index_col=0)
 # make model matrix for correcting by tissue type
 tmp = sample_info[['sample_collection_site']]
