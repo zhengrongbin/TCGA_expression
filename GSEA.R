@@ -110,7 +110,7 @@ plotEnrichment <- function(pathway, pname, stats, gseaParam = 1, ticksSize = 0.2
     
   rank_mat = data.frame('ranks' = 0:(length(ord)-1), 'score'=stats[ord])
   rank_mat$h = 1
-  g3 = ggplot(data = rank_mat, aes(x = ranks, y = h, fill = ranks))+geom_tile()+gstyle+midstyle+
+  g3 = ggplot(data = rank_mat, aes(x = ranks, y = h, fill = score))+geom_tile()+gstyle+midstyle+
     theme(legend.position='none')+
     xlab('')+ylab('')+
     scale_fill_gradient2(high = 'blue', low = 'red', mid = 'white', midpoint = sort(rank_mat[rank_mat$score > 0, 'score'])[1])
